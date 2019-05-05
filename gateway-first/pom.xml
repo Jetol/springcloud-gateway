@@ -2,28 +2,76 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>springcloud-gateway</groupId>
-        <artifactId>springcloud-gateway</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+
     <groupId>com.xieluyang</groupId>
     <artifactId>gateway-first</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>gateway-first</name>
-    <description>Demo project for Spring Boot</description>
+    <version>0.1.0</version>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.5.RELEASE</version>
+        <!--
+        <version>2.1.4.RELEASE</version>高版本不行
+        https://blog.csdn.net/maduo_duo/article/details/84866137
+        -->
+    </parent>
 
+    <!--这个不能去掉，否则报错，gateway和hystrix有用到-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
-       <!-- <dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
+        <!--</dependency>-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>-->
-
-
     </dependencies>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+<!--
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+-->
 
     <build>
         <plugins>
@@ -35,3 +83,44 @@
     </build>
 
 </project>
+
+
+        <!--
+        <?xml version="1.0" encoding="UTF-8"?>
+        <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+            <modelVersion>4.0.0</modelVersion>
+            <parent>
+                <groupId>springcloud-gateway</groupId>
+                <artifactId>springcloud-gateway</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;
+            </parent>
+            <groupId>com.xieluyang</groupId>
+            <artifactId>gateway-first</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <name>gateway-first</name>
+            <description>Demo project for Spring Boot</description>
+
+
+
+            <dependencies>
+               &lt;!&ndash; <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </dependency>&ndash;&gt;
+
+
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </project>
+        -->
