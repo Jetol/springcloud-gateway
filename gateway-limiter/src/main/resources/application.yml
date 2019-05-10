@@ -1,0 +1,22 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: limit_route
+        url: http://httpbin.org:80/get
+        predicates:
+        - after=2017-01-20T17:42:47.789-07:00[America/Denver]
+        filters:
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@hostAddrKeyResolver}'
+            redis-rate-limiter.replenishRate: 1
+            redis-rate-limiter.burstCapacity: 3
+  application:
+    name: gateway-limiter
+  redis:
+    host: 192.168.0.210
+    port: 6379
+    database: 1
