@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/gateway-first/pom.xml" />
         <option value="$PROJECT_DIR$/gateway-predict/pom.xml" />
         <option value="$PROJECT_DIR$/gateway-limiter/pom.xml" />
+        <option value="$PROJECT_DIR$/spring4all-gateway-1/pom.xml" />
       </list>
     </option>
   </component>

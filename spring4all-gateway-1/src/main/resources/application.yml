@@ -1,0 +1,23 @@
+#自定义路由，通过配置来处理。
+#如上的配置定义了路由与过滤器。全局过滤器将所有的响应加上头部 X-Response-Default-Foo: Default-Bar 。
+# 定义了id为 default_path_to_http （随便取名字，只要别和后面配置的id重复就行）的路由，只是优先级比较低，
+#  当该请求都不能匹配时，将会转发到 localhost:port/hello （不会转发）。
+server:
+  port: 8088
+spring:
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+      default-filters:
+        - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+
+      routes:
+        # =====================================
+        - id: default_path_to_http
+          uri: localhost:8080/hello
+          order: 10000
+          predicates:
+            - Path=/**
+
+---

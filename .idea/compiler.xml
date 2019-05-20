@@ -9,6 +9,7 @@
         <module name="gateway-predict" />
         <module name="gateway-first" />
         <module name="gateway-limiter" />
+        <module name="spring4all-gateway-1" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,6 +18,7 @@
       <module name="gateway-first" options="-parameters" />
       <module name="gateway-limiter" options="-parameters" />
       <module name="gateway-predict" options="-parameters" />
+      <module name="spring4all-gateway-1" options="-parameters" />
       <module name="springcloud-gateway" options="-parameters" />
     </option>
   </component>
