@@ -1,4 +1,4 @@
-#自定义路由，通过配置来处理。
+#10大断言，通过写配置和写代码实例。
 #如上的配置定义了路由与过滤器。全局过滤器将所有的响应加上头部 X-Response-Default-Foo: Default-Bar 。
 # 定义了id为 default_path_to_http （随便取名字，只要别和后面配置的id重复就行）的路由，只是优先级比较低，
 #  当该请求都不能匹配时，将会转发到 localhost:port/hello （不会转发）。
@@ -12,7 +12,6 @@ spring:
         enabled: true
       default-filters:
         - AddResponseHeader=X-Response-Default-Foo, Default-Bar
-
       routes:
         # =====================================
         - id: default_path_to_http
@@ -21,7 +20,7 @@ spring:
           order: 10
           predicates:
             - Path=/**
-
+#1）After断言
 ---
 spring:
   cloud:
@@ -33,6 +32,7 @@ spring:
           - After=2019-05-21T17:42:47.789-07:00[Asia/Shanghai] #注意一定要当前时间之内，否则启动报错
 #          - After=2017-01-20T17:42:47.789-07:00[America/Denver]
 
+#2）Before断言
 ---
 spring:
   cloud:
@@ -43,7 +43,7 @@ spring:
           predicates:
           - Before=2019-05-21T17:42:47.789-07:00[Asia/Shanghai]
 
-
+#3）Between断言
 ---
 #spring:
 #  cloud:
@@ -55,7 +55,7 @@ spring:
 #          predicates:
 #            - Between=2017-01-20T17:42:47.789-07:00[Asia/Shanghai], 2019-06-21T17:42:47.789-07:00[Asia/Shanghai]
 
-#还没有测试出来结果
+#4）Cookie断言，还没有测试出来结果。
 ---
 spring:
   cloud:
@@ -65,6 +65,7 @@ spring:
           uri: http://httpbin.org/get
           predicates:
             - Cookie=BD_HOME, ch.p
+#5)Header断言
 ---
 spring:
   cloud:
@@ -75,6 +76,7 @@ spring:
           predicates:
             - Header=token, \d+
 
+#6）Host断言
 ---
 spring:
   cloud:
@@ -85,6 +87,7 @@ spring:
           predicates:
             - Host=**localhost**
 
+#7）Method断言
 ---
 spring:
   cloud:
@@ -95,6 +98,7 @@ spring:
           predicates:
             - Method=GET
 
+#8）Query查询参数名断言
 ---
 spring:
   cloud:
@@ -105,6 +109,7 @@ spring:
           predicates:
             - Query=baz
 
+#9）RemoteAddr 客户端地址断言
 ---
 spring:
   cloud:
@@ -117,3 +122,5 @@ spring:
 #            - RemoteAddr=192.168.1.123
 #            - RemoteAddr=192.168.0.123
 #            - RemoteAddr=121.35.181.197
+
+#10）Path路径断言
