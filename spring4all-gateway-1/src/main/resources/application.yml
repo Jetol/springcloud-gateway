@@ -4,6 +4,7 @@
 #  当该请求都不能匹配时，将会转发到 localhost:port/hello （不会转发）。
 server:
   port: 8088
+---
 spring:
   cloud:
     gateway:
@@ -15,9 +16,104 @@ spring:
       routes:
         # =====================================
         - id: default_path_to_http
-          uri: localhost:8080/hello
-          order: 10000
+#          uri: http://localhost:8088/hello 调用接口内部报413
+          uri: http://example.org
+          order: 10
           predicates:
             - Path=/**
 
 ---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: after_route
+          uri: http://httpbin.org/get
+          predicates:
+          - After=2019-05-21T17:42:47.789-07:00[Asia/Shanghai] #注意一定要当前时间之内，否则启动报错
+#          - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: before_route
+          uri: https://www.baidu.com/
+          predicates:
+          - Before=2019-05-21T17:42:47.789-07:00[Asia/Shanghai]
+
+
+---
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: between_route
+#          uri: https://www.json.cn/
+#          order: 1000
+#          predicates:
+#            - Between=2017-01-20T17:42:47.789-07:00[Asia/Shanghai], 2019-06-21T17:42:47.789-07:00[Asia/Shanghai]
+
+#还没有测试出来结果
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cookie_route
+          uri: http://httpbin.org/get
+          predicates:
+            - Cookie=BD_HOME, ch.p
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: header_route
+          uri: https://www.jianshu.com/
+          predicates:
+            - Header=token, \d+
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: host_route
+          uri: http://httpbin.org/image/svg
+          predicates:
+            - Host=**localhost**
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: method_route
+          uri: http://httpbin.org/image/png
+          predicates:
+            - Method=GET
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: query_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Query=baz
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: remoteaddr_route
+          uri: http://example.org
+          predicates:
+            - RemoteAddr=127.0.0.1
+#            - RemoteAddr=192.168.1.123
+#            - RemoteAddr=192.168.0.123
+#            - RemoteAddr=121.35.181.197

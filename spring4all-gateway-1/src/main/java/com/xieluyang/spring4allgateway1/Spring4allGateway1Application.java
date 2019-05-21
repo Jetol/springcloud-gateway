@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
 @RestController
 @SpringBootApplication
 public class Spring4allGateway1Application {
@@ -34,7 +35,7 @@ public class Spring4allGateway1Application {
         return route;
     }
     /**
-     * 过滤器工厂（访问不到）
+     * 过滤器工厂（访问思路有所不同）
      * 网关经常对路由进行过滤，进行一些操作，如鉴定权限之后，构造头部之类的，过滤的种类比较多，如：
      * 增加请求头，增加参数，增加响应头和断路器等等功能。
      */
@@ -53,19 +54,15 @@ public class Spring4allGateway1Application {
     }
 
    /* @Bean
-    public RouteLocator customRouteLocator() {
-        //@formatter:off
-        return Routes.locator()
-                .route("test")
-                .predicate(host("**.abc.org").and(path("/image/png")))
-                .addResponseHeader("X-TestHeader", "foobar")
-                .uri("http://httpbin.org:80")
-                .route("test2")
-                .predicate(path("/image/webp"))
-                .add(addResponseHeader("X-AnotherHeader", "baz"))
-                .uri("http://httpbin.org:80")
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+        ZonedDateTime minusTime = LocalDateTime
+                .now()
+                .minusDays(1)
+                .atZone(ZoneId.systemDefault());
+        return builder.routes()
+                .route("after_route", r -> r.after(minusTime)
+                        .uri("/hello"))
                 .build();
-        ////@formatter:on
     }*/
 
     @RequestMapping("get")
